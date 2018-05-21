@@ -17,7 +17,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author bokon
+ * @author Brian Okon @ okon.brian@gmail.com
  */
 @Entity
 @Table(name = "property_envirionment")
@@ -29,7 +29,7 @@ public class PropertyEnvironment implements Serializable {
     private Long id;
 
     @ManyToOne
-    @JoinColumn("id")
+    @JoinColumn(name = "id")
     private Property property;
     
     @Column(name = "description", nullable = false, length = 150, columnDefinition = "VARCHAR(150)")
