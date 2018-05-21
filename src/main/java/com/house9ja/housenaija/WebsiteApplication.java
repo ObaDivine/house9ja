@@ -18,6 +18,6 @@ public class WebsiteApplication extends SpringBootServletInitializer {
         SpringApplication.run(WebsiteApplication.class, args);
     }
     
-    @RequestMapping("/")
+    @RequestMapping("/house9ja")
     public String home(){return "index";}
 }
