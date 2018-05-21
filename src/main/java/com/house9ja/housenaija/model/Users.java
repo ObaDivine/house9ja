@@ -25,7 +25,7 @@ public class Users implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false, unique = true)
+    @Column(name = "id")
     private Long id;
     
     @Column(name = "surname", nullable = false, length = 50, columnDefinition = "VARCHAR(50)")

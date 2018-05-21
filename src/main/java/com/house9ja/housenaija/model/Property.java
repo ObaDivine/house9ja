@@ -15,7 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import org.hibernate.annotations.CascadeType;
 
 /**
  *
@@ -26,7 +25,7 @@ import org.hibernate.annotations.CascadeType;
 public class Property implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false, unique = true)
+    @Column(name = "id")
     private Long proprtyId;
     
     @Column(name = "property_type", nullable = false, length = 50, columnDefinition = "VARCHAR(50)")
@@ -126,7 +125,7 @@ public class Property implements Serializable{
     private int dateAdded;
     
     @ManyToOne()
-    @JoinColumn(name = "id")
+    @JoinColumn
     private Users user;
 
     public Long getProprtyId() {

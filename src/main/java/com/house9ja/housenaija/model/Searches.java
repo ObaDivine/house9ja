@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -24,29 +26,33 @@ public class Searches implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false, unique = true)
+    @Column(name = "id")
     private Long id;
-    
+
     @Column(name = "search_item", nullable = false, length = 150, columnDefinition = "VARCHAR(150)")
     private String searchItem;
-    
+
     @Column(name = "search_date", nullable = false, length = 150, columnDefinition = "VARCHAR(150)")
     private String searchDate;
-    
+
     @Column(name = "web_address", nullable = false, length = 150, columnDefinition = "VARCHAR(150)")
     private String webAddress;
-    
+
     @Column(name = "property_search_state", nullable = false, length = 150, columnDefinition = "VARCHAR(150)")
     private String searchState;
-    
+
     @Column(name = "property_search_city", nullable = false, length = 150, columnDefinition = "VARCHAR(150)")
     private String searchCity;
-    
+
     @Column(name = "property_search_neighbourhood", nullable = false, length = 150, columnDefinition = "VARCHAR(150)")
     private String searchNeighbourhood;
-    
+
     @Column(name = "price", nullable = false, length = 150, columnDefinition = "DECIMAL(10,2)")
     private BigDecimal price;
+
+    @ManyToOne()
+    @JoinColumn
+    private Users user;
 
     public Long getId() {
         return id;
@@ -111,5 +117,13 @@ public class Searches implements Serializable {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
-    
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
+
 }

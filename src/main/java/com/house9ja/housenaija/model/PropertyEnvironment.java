@@ -25,11 +25,11 @@ public class PropertyEnvironment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false, unique = true)
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn
     private Property property;
     
     @Column(name = "description", nullable = false, length = 150, columnDefinition = "VARCHAR(150)")
