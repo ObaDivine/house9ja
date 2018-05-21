@@ -24,7 +24,7 @@ public class Searches implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
     
     @Column(name = "search_item", nullable = false, length = 150, columnDefinition = "VARCHAR(150)")

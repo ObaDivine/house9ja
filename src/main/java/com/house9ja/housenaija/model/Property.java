@@ -26,7 +26,7 @@ import org.hibernate.annotations.CascadeType;
 public class Property implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", updatable = false, nullable = false, unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     private Long proprtyId;
     
     @Column(name = "property_type", nullable = false, length = 50, columnDefinition = "VARCHAR(50)")

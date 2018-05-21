@@ -25,7 +25,7 @@ public class PropertyEnvironment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
     @ManyToOne
