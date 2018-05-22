@@ -126,7 +126,7 @@ public class Property implements Serializable{
     
     @ManyToOne()
     @JoinColumn
-    private Users user;
+    private User user;
 
     public Long getProprtyId() {
         return proprtyId;
@@ -328,11 +328,11 @@ public class Property implements Serializable{
         this.boysQuarter = boysQuarter;
     }
 
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

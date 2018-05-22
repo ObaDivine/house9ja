@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title th:text="#{app.title}">House Naija</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="all,follow">
+        <link th:href="@{/img/favicon.png}" href="/img/favicon.png" rel="icon">
+        <link rel="stylesheet" th:href="@{/css/animate.css}">
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" th:href="@{/css/bootstrap-select.min.css}">
+        <link rel="stylesheet" th:href="@{/css/owl.carousel.css}">
+        <link rel="stylesheet" th:href="@{/css/owl.theme.default.css}">
+        <link rel="stylesheet" th:href="@{/css/style.default.css}" id="theme-stylesheet">
+        <link rel="stylesheet" th:href="@{/css/datatables.min.css}">
+        <link rel="shortcut icon" th:href="@{img/favicon.ico}" type="image/x-icon">
+        <link rel="apple-touch-icon" th:href="@{/img/apple-touch-icon.png}">
+        <script>
+            $('[data-toggle="popover"]').popover();
+        </script>
+    </head>
+    <body>
+        <div class="card" style="width: 40%;left:30%; text-align: center;">
+            <img class="card-img-top" th:src="@{/img/registration.jpg}" alt="Card image cap" style="height: 200px;">
+            <div class="card-body">
+                <h4 class="card-title text-center text-uppercase color:#ea7600;">Accion Internet Banking</h4>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Ensure you protect your password and PIN</li>
+                    <li class="list-group-item">Do not reveal your PIN to anyone including Accion employee</li>
+                    <li class="list-group-item">Ensure you log off successfully</li>
+                    <li class="list-group-item">Use this service at your own risk</li>
+                </ul><br/>
+                <p class="text-sm-center small">By clicking on the "Proceed To Internet Banking" link below, you agree to our terms and conditions.</p>
+                <a th:href="@{/internet-banking/login}" class="btn btn-primary text-light">Proceed To Internet Banking</a>
+                <br/>
+            </div>
+            <div class="card-footer bg-dark small">
+                <a th:href="@{/termsofuse}" style="text-decoration: none;" class="text-small">Terms of Service</a>&nbsp&nbsp<a th:href="@{/termsofuse}" style="text-decoration: none;" class="text-sm">Privacy Policy</a>
+            </div>
+        </div>
+    </body>
+</html>

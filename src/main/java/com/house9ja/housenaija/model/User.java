@@ -6,12 +6,20 @@
 package com.house9ja.housenaija.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
@@ -20,78 +28,85 @@ import javax.validation.constraints.Size;
  * @author bokon
  */
 @Entity
-@Table(name = "users")
-public class Users implements Serializable{
+@Table(name = "user")
+public class User implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
-    
+
     @Column(name = "surname", nullable = false, length = 50, columnDefinition = "VARCHAR(50)")
     private String surname;
-    
+
     @Column(name = "other_names", nullable = false, length = 50, columnDefinition = "VARCHAR(50)")
     private String otherNames;
-    
+
     @Column(name = "gender", nullable = false, length = 7, columnDefinition = "VARCHAR(7)")
     private String gender;
-    
+
     @Column(name = "age_range", nullable = false, length = 5, columnDefinition = "VARCHAR(5)")
     private String ageRange;
-    
+
     @Column(name = "country", nullable = false, length = 30, columnDefinition = "VARCHAR(30)")
     private String country = "NIGERIA";
-    
+
     @Column(name = "user_state", nullable = false, length = 30, columnDefinition = "VARCHAR(30)")
     private String userState;
-    
+
     @Column(name = "lga", nullable = false, length = 50, columnDefinition = "VARCHAR(50)")
     private String lga;
-    
+
     @Column(name = "contact_address", nullable = false, length = 50, columnDefinition = "VARCHAR(50)")
     private String address;
-    
+
     @Column(name = "specialization", nullable = false, length = 30, columnDefinition = "VARCHAR(30)")
     private String specialization;
-    
+
     @Email
     @Column(name = "email", nullable = false, length = 50, columnDefinition = "VARCHAR(50)")
     private String email;
-    
+
     @Column(name = "email_confirmed", nullable = false, columnDefinition = "BOOLEAN")
     private String emailConfirmed;
-    
+
     @Column(name = "phone_numer", nullable = false, length = 11, columnDefinition = "VARCHAR(11)")
     private String phoneNumber;
-    
+
     @Column(name = "user_type", nullable = false, length = 7, columnDefinition = "VARCHAR(7)")
     private String userType;
-    
+
     @Column(name = "username", nullable = false, length = 15, columnDefinition = "VARCHAR(15)")
     private String username;
-    
-    @Column(name = "password", nullable = false, length = 20, columnDefinition = "VARCHAR(20)")
+
+    @Transient
     @Size(min = 6)
-    private String userPassword;
-    
+    private String password;
+
+    @Column(name = "encrypted_password", nullable = false, length = 255, columnDefinition = "VARCHAR(255)")
+    private String encryptedPassword;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles = new ArrayList<>();
+
+    @Column(name = "failed_attempts", columnDefinition = "INT")
+    private int failedAttempts = 0;
+
     @Column(name = "picture", nullable = false, length = 255, columnDefinition = "VARCHAR(255)")
     private String picture;
-    
+
     @Column(name = "membership", nullable = false, length = 10, columnDefinition = "VARCHAR(10)")
     private String membership;
-    
-    @Column(name = "user_role", nullable = false, length = 7, columnDefinition = "VARCHAR(7)")
-    private String userRole;
-    
+
     @Column(name = "date_added", nullable = false, columnDefinition = "DATETIME")
     private String dateAdded;
-    
+
     @Column(name = "added_by", nullable = false, columnDefinition = "BIGINT")
     private String addedBy;
-    
-    @Column(name = "status", nullable = false, length = 10, columnDefinition = "VARCHAR(10)")
-    private String status;
+
+    @Column(name = "enabled", nullable = false, length = 10, columnDefinition = "VARCHAR(10)")
+    private Boolean enabled = false;
 
     public Long getId() {
         return id;
@@ -181,6 +196,14 @@ public class Users implements Serializable{
         this.email = email;
     }
 
+    public String getEmailConfirmed() {
+        return emailConfirmed;
+    }
+
+    public void setEmailConfirmed(String emailConfirmed) {
+        this.emailConfirmed = emailConfirmed;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -205,12 +228,51 @@ public class Users implements Serializable{
         this.username = username;
     }
 
-    public String getUserPassword() {
-        return userPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEncryptedPassword() {
+        return encryptedPassword;
+    }
+
+    public void setEncryptedPassword(String encryptedPassword) {
+        this.encryptedPassword = encryptedPassword;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void addRole(Role role) {
+        if (!this.roles.contains(role)) {
+            this.roles.add(role);
+        }
+
+        if (!role.getUsers().contains(this)) {
+            role.getUsers().add(this);
+        }
+    }
+
+    public void removeRole(Role role) {
+        this.roles.remove(role);
+        role.getUsers().remove(this);
+    }
+
+    public int getFailedAttempts() {
+        return failedAttempts;
+    }
+
+    public void setFailedAttempts(int failedAttempts) {
+        this.failedAttempts = failedAttempts;
     }
 
     public String getPicture() {
@@ -229,30 +291,6 @@ public class Users implements Serializable{
         this.membership = membership;
     }
 
-    public String getUserRole() {
-        return userRole;
-    }
-
-    public void setUserRole(String userRole) {
-        this.userRole = userRole;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getEmailConfirmed() {
-        return emailConfirmed;
-    }
-
-    public void setEmailConfirmed(String emailConfirmed) {
-        this.emailConfirmed = emailConfirmed;
-    }
-
     public String getDateAdded() {
         return dateAdded;
     }
@@ -268,5 +306,13 @@ public class Users implements Serializable{
     public void setAddedBy(String addedBy) {
         this.addedBy = addedBy;
     }
-    
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
 }

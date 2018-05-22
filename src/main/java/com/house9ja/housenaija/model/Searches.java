@@ -52,7 +52,7 @@ public class Searches implements Serializable {
 
     @ManyToOne()
     @JoinColumn
-    private Users user;
+    private User user;
 
     public Long getId() {
         return id;
@@ -118,11 +118,11 @@ public class Searches implements Serializable {
         this.price = price;
     }
 
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
